@@ -72,7 +72,6 @@ EOF
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=Neverball
 Comment=Tilt the floor to roll the ball
 Exec=%{_gamesbindir}/%{name} %U
@@ -84,7 +83,6 @@ Categories=X-MandrivaLinux-MoreApplications-Games-Arcade;Game;ArcadeGame;
 EOF
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-neverputt.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=Neverputt
 Comment=Golf game based on neverball
 Exec=%{_gamesbindir}/neverputt %U

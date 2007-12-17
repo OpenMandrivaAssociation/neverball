@@ -14,7 +14,6 @@ Patch0:		neverball_X11_path.patch
 Group:		Games/Arcade
 License:	GPL
 Epoch:		1
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel
 BuildRequires:	GL-devel
 Obsoletes:	neverputt

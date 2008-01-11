@@ -64,11 +64,6 @@ install -D -m 644 %{SOURCE4} $RPM_BUILD_ROOT%{_liconsdir}/neverputt.png
 install -D -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_iconsdir}/neverputt.png
 install -D -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_miconsdir}/neverputt.png
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat > $RPM_BUILD_ROOT%{_menudir}/%{name} << EOF
-?package(%{name}): command="%{_gamesbindir}/%{name}" icon="%{name}.png" section="More Applications/Games/Arcade" title="Neverball" longtitle="Tilt the floor to roll the ball" needs="x11" xdg="true"
-?package(%{name}): command="%{_gamesbindir}/neverputt" icon="neverputt.png" section="More Applications/Games/Arcade" title="Neverputt" longtitle="Golf game based on neverball" needs="x11" xdg="true"
-EOF
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
@@ -111,7 +106,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_gamesdatadir}/%{name}
 %{_gamesdatadir}/%{name}/*
 %{_datadir}/applications/mandriva*
-%{_menudir}/%{name}
 %{_liconsdir}/%{name}.png
 %{_iconsdir}/%{name}.png
 %{_miconsdir}/%{name}.png

@@ -1,7 +1,7 @@
 Name:		neverball
 Summary:	NeverBall arcade game
-Version: 1.4.0
-Release: %mkrel 7
+Version: 1.5.0
+Release: %mkrel 1
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
 Source1:	%{name}-48.png
@@ -10,9 +10,9 @@ Source3:	%{name}-16.png
 Source4:	neverputt-48.png
 Source5:	neverputt-32.png
 Source6:	neverputt-16.png
-Patch0:		neverball_X11_path.patch
 Group:		Games/Arcade
-License:	GPL
+License:	GPL v2+
+Patch:      neverball-formatstring.patch
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel
@@ -29,7 +29,7 @@ Hardware accellerated OpenGL support with multitexture
 
 %prep
 %setup -q
-%patch0 -p0
+%patch -p0
 
 %build
 %make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags` -L%_prefix/X11R6/%_lib"

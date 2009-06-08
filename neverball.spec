@@ -1,6 +1,6 @@
 Name:		neverball
 Summary:	NeverBall arcade game
-Version: 1.5.0
+Version: 1.5.1
 Release: %mkrel 1
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2

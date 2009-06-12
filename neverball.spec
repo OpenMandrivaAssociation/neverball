@@ -1,18 +1,13 @@
 Name:		neverball
 Summary:	NeverBall arcade game
 Version: 1.5.1
-Release: %mkrel 1
+Release: %mkrel 2
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
-Source1:	%{name}-48.png
-Source2:	%{name}-32.png
-Source3:	%{name}-16.png
-Source4:	neverputt-48.png
-Source5:	neverputt-32.png
-Source6:	neverputt-16.png
 Group:		Games/Arcade
-License:	GPL v2+
+License:	GPLv2+
 Patch:      neverball-formatstring.patch
+Patch1:	    neverball-1.5.1-gamesdatadir.patch
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel libpng-devel libjpeg-devel
@@ -30,63 +25,35 @@ Hardware accellerated OpenGL support with multitexture
 %prep
 %setup -q
 %patch -p0
+%patch1 -p1
 
 %build
-%make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags` -L%_prefix/X11R6/%_lib"
+%make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags`" ENABLE_NLS=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-function install_binary() {
-	binary=$1
-	install -m755 $binary -D $RPM_BUILD_ROOT%{_gamesbindir}/$binary.bin
-
-	cat > $RPM_BUILD_ROOT%{_gamesbindir}/$binary << EOF
-#!/bin/sh
-cd %{_gamesdatadir}/%{name}
-%{_gamesbindir}/$binary.bin
-EOF
-
-	chmod +x $RPM_BUILD_ROOT%{_gamesbindir}/$binary
-}
-
-install_binary %{name}
-install_binary neverputt
+install -m 755 %{name} -D $RPM_BUILD_ROOT%{_gamesbindir}/%name
+install -m 755 neverputt $RPM_BUILD_ROOT%{_gamesbindir}/
 
 mkdir -p $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}
 rm -fr data/map-*/*.map
 cp -a data $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}/
 
-install -D -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
-install -D -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-install -D -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-install -D -m 644 %{SOURCE4} $RPM_BUILD_ROOT%{_liconsdir}/neverputt.png
-install -D -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_iconsdir}/neverputt.png
-install -D -m 644 %{SOURCE6} $RPM_BUILD_ROOT%{_miconsdir}/neverputt.png
-
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=Neverball
-Comment=Tilt the floor to roll the ball
-Exec=%{_gamesbindir}/%{name} %U
-Icon=%{name}
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=X-MandrivaLinux-MoreApplications-Games-Arcade;Game;ArcadeGame;
-EOF
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-neverputt.desktop << EOF
-[Desktop Entry]
-Name=Neverputt
-Comment=Golf game based on neverball
-Exec=%{_gamesbindir}/neverputt %U
-Icon=neverputt
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=X-MandrivaLinux-MoreApplications-Games-Arcade;Game;ArcadeGame;
-EOF
+install -m 644 dist/*.desktop $RPM_BUILD_ROOT%{_datadir}/applications
+mkdir -p %buildroot%_mandir/man6
+install -m 644 dist/*.6 %buildroot%_mandir/man6
+
+for res in 16 24 32 48 64 128 256; do
+    mkdir -p %buildroot%_datadir/icons/hicolor/${res}x${res}/apps
+    install -m 644 dist/neverball_${res}.png %buildroot%_datadir/icons/hicolor/${res}x${res}/apps/neverball.png
+    install -m 644 dist/neverputt_${res}.png %buildroot%_datadir/icons/hicolor/${res}x${res}/apps/neverputt.png
+done
+
+cp -r locale %buildroot%_datadir
+
+%find_lang %name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -94,26 +61,22 @@ rm -rf $RPM_BUILD_ROOT
 %if %mdkversion < 200900
 %post
 %update_menus
-%endif
-
-%if %mdkversion < 200900
+%update_icon_cache hicolor
 %postun
 %clean_menus
+%clean_icon_cache hicolor
 %endif
 
-%files
+%files -f %name.lang
 %defattr(644,root,root,755)
 %doc CHANGES README
-# do not package TODO to make rpmlint happy (zero size)
-%attr(755,root,root) %{_gamesbindir}/%{name}*
-%attr(755,root,root) %{_gamesbindir}/neverputt*
+%doc doc/*
+%attr(755,root,root) %{_gamesbindir}/%{name}
+%attr(755,root,root) %{_gamesbindir}/neverputt
 %dir %{_gamesdatadir}/%{name}
 %{_gamesdatadir}/%{name}/*
-%{_datadir}/applications/mandriva*
-%{_liconsdir}/%{name}.png
-%{_iconsdir}/%{name}.png
-%{_miconsdir}/%{name}.png
-%{_liconsdir}/neverputt.png
-%{_iconsdir}/neverputt.png
-%{_miconsdir}/neverputt.png
-
+%{_datadir}/applications/%name.desktop
+%{_datadir}/applications/neverputt.desktop
+%_datadir/icons/hicolor/*/apps/never*png
+%_mandir/man6/neverball.6*
+%_mandir/man6/neverputt.6*

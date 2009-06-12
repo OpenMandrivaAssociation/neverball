@@ -1,12 +1,13 @@
 Name:		neverball
 Summary:	NeverBall arcade game
 Version: 1.5.1
-Release: %mkrel 3
+Release: %mkrel 4
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
 Group:		Games/Arcade
 License:	GPLv2+
 Patch:      neverball-formatstring.patch
+Patch1:	    neverball-1.5.1-directories.patch
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel libpng-devel libjpeg-devel
@@ -24,6 +25,7 @@ Hardware accellerated OpenGL support with multitexture
 %prep
 %setup -q
 %patch -p0
+%patch1 -p1
 
 %build
 %make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags`" ENABLE_NLS=1
@@ -31,21 +33,8 @@ Hardware accellerated OpenGL support with multitexture
 %install
 rm -rf $RPM_BUILD_ROOT
 
-function install_binary() {
-	 binary=$1
-	 install -m755 $binary -D $RPM_BUILD_ROOT%{_gamesbindir}/$binary.bin
-
-	 cat > $RPM_BUILD_ROOT%{_gamesbindir}/$binary << EOF
-#!/bin/sh
-cd %{_gamesdatadir}/%{name}
-%{_gamesbindir}/$binary.bin
-EOF
-
-	chmod +x $RPM_BUILD_ROOT%{_gamesbindir}/$binary
-}
-
-install_binary %{name}
-install_binary neverputt
+install -m 755 -D %name %buildroot%_gamesbindir/%name
+install -m 755 neverputt %buildroot%_gamesbindir/
 
 mkdir -p $RPM_BUILD_ROOT%{_gamesdatadir}/%{name}
 rm -fr data/map-*/*.map
@@ -62,7 +51,9 @@ for res in 16 24 32 48 64 128 256; do
     install -m 644 dist/neverputt_${res}.png %buildroot%_datadir/icons/hicolor/${res}x${res}/apps/neverputt.png
 done
 
-cp -r locale %buildroot%_gamesdatadir/%name/
+cp -r locale %buildroot%_datadir/
+
+%find_lang %name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -76,12 +67,12 @@ rm -rf $RPM_BUILD_ROOT
 %clean_icon_cache hicolor
 %endif
 
-%files
+%files -f %name.lang
 %defattr(644,root,root,755)
 %doc CHANGES README
 %doc doc/*
-%attr(755,root,root) %{_gamesbindir}/%{name}*
-%attr(755,root,root) %{_gamesbindir}/neverputt*
+%attr(755,root,root) %{_gamesbindir}/%{name}
+%attr(755,root,root) %{_gamesbindir}/neverputt
 %dir %{_gamesdatadir}/%{name}
 %{_gamesdatadir}/%{name}/*
 %{_datadir}/applications/%name.desktop

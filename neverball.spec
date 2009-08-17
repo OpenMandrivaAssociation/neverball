@@ -11,6 +11,7 @@ Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel libpng-devel libjpeg-devel
 BuildRequires:	GL-devel
+BuildRequires:	libphysfs-devel
 Obsoletes:	neverputt
 Provides:	neverputt
 

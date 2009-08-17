@@ -1,12 +1,11 @@
 Name:		neverball
 Summary:	NeverBall arcade game
-Version: 1.5.1
-Release: %mkrel 5
+Version: 1.5.2
+Release: %mkrel 1
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
 Group:		Games/Arcade
 License:	GPLv2+
-Patch:      neverball-formatstring.patch
 Patch1:	    neverball-1.5.1-directories.patch
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -24,7 +23,6 @@ Hardware accellerated OpenGL support with multitexture
 
 %prep
 %setup -q
-%patch -p0
 %patch1 -p1
 
 %build

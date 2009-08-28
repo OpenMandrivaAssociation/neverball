@@ -1,12 +1,11 @@
 Name:		neverball
 Summary:	NeverBall arcade game
 Version: 1.5.2
-Release: %mkrel 1
+Release: %mkrel 2
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
 Group:		Games/Arcade
 License:	GPLv2+
-Patch1:	    neverball-1.5.1-directories.patch
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	SDL_mixer-devel SDL_image-devel SDL_ttf-devel libpng-devel libjpeg-devel
@@ -24,10 +23,9 @@ Hardware accellerated OpenGL support with multitexture
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
-%make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags`" ENABLE_NLS=1
+%make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags`" ENABLE_NLS=1 DATADIR=%_gamesdatadir/%name/data LOCALEDIR=%_datadir/locale
 
 %install
 rm -rf $RPM_BUILD_ROOT

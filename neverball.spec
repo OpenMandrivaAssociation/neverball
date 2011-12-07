@@ -4,7 +4,8 @@ Version: 1.5.4
 Release: %mkrel 3
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
-Patch:		neverball-1.5.2-fix-locale-dir.patch
+Patch0:		neverball-1.5.2-fix-locale-dir.patch
+Patch1:		neverball-1.5.4-fix-linking.patch
 Group:		Games/Arcade
 License:	GPLv2+
 Epoch:		1
@@ -24,7 +25,7 @@ Hardware accellerated OpenGL support with multitexture
 
 %prep
 %setup -q
-%patch -p1
+%apply_patches
 
 %build
 %make CFLAGS="$RPM_OPT_FLAGS -ansi `sdl-config --cflags`" ENABLE_NLS=1 DATADIR=%_gamesdatadir/%name/data

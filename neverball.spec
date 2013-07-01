@@ -1,5 +1,5 @@
 Name:		neverball
-Summary:	NeverBall arcade game
+Summary:	Arcade game
 Version: 1.5.4
 Release: %mkrel 3
 Url:		http://icculus.org/neverball/

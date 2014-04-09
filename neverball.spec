@@ -6,6 +6,7 @@ Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.bz2
 Patch0:		neverball-1.5.2-fix-locale-dir.patch
 Patch1:		neverball-1.5.4-fix-linking.patch
+Patch2:		neverball-1.5.4-libpng-1.6.patch
 Group:		Games/Arcade
 License:	GPLv2+
 Epoch:		1

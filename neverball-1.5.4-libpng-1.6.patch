@@ -1,0 +1,11 @@
+--- neverball-1.5.4/share/base_image.c~	2009-09-20 18:06:00.000000000 +0800
++++ neverball-1.5.4/share/base_image.c	2013-06-03 16:01:18.611164875 +0800
+@@ -94,7 +94,7 @@
+         default: longjmp(png_jmpbuf(readp), -1);
+         }
+ 
+-        if (!(bytep = png_malloc(readp, h * png_sizeof(png_bytep))))
++        if (!(bytep = png_malloc(readp, h * sizeof(png_bytep))))
+             longjmp(png_jmpbuf(readp), -1);
+ 
+         /* Allocate the final pixel buffer and read pixels there. */

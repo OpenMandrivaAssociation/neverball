@@ -1,7 +1,7 @@
 Summary:	Arcade game
 Name:		neverball
 Version:	1.6.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPLv2+
 Group:		Games/Arcade

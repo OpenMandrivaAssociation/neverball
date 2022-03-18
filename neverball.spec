@@ -1,8 +1,10 @@
+# Workaround duplicate symbols
+%global optflags %{optflags} -fcommon
+
 Summary:	Arcade game
 Name:		neverball
 Version:	1.6.0
-Release:	3
-Epoch:		1
+Release:	1
 License:	GPLv2+
 Group:		Games/Arcade
 Url:		http://icculus.org/neverball/

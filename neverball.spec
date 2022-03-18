@@ -1,14 +1,14 @@
 Summary:	Arcade game
 Name:		neverball
 Version:	1.6.0
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPLv2+
 Group:		Games/Arcade
 Url:		http://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.gz
 BuildRequires:	jpeg-devel
-BuildRequires:	libphysfs-devel
+BuildRequires:	pkgconfig(physfs)
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)

@@ -7,7 +7,7 @@ Version:	1.6.0
 Release:	1
 License:	GPLv2+
 Group:		Games/Arcade
-Url:		http://icculus.org/neverball/
+Url:		https://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.gz
 BuildRequires:	jpeg-devel
 BuildRequires:	pkgconfig(physfs)

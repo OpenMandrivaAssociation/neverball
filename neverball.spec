@@ -10,14 +10,12 @@ Group:		Games/Arcade
 Url:		https://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.gz
 BuildRequires:	jpeg-devel
-BuildRequires:	pkgconfig(physfs)
+BuildRequires:	physfs-devel
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(vorbisfile)
-BuildRequires:	gcc
-BuildRequires:	gcc-c++
 
 %description
 Tilt the floor to roll the ball through the obstacle course before time
@@ -44,11 +42,9 @@ or greater) is required.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-export CC=gcc
-export CXX=g++
 %make_build \
 	CFLAGS="%{optflags}" \
 	CXXFLAGS="%{optflags}" \

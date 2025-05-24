@@ -9,8 +9,9 @@ License:	GPLv2+
 Group:		Games/Arcade
 Url:		https://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.gz
+BuildRequires:	gettext
 BuildRequires:	jpeg-devel
-BuildRequires:	pkgconfig(physfs)
+BuildRequires:	physfs-devel
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)
@@ -42,10 +43,10 @@ or greater) is required.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
-%make \
+%make_build \
 	CFLAGS="%{optflags}" \
 	CXXFLAGS="%{optflags}" \
 	ENABLE_NLS=1 \

@@ -46,7 +46,7 @@ or greater) is required.
 %autosetup -p1
 
 %build
-make \
+%make_build \
 	CFLAGS="%{optflags}" \
 	CXXFLAGS="%{optflags}" \
 	ENABLE_NLS=1 \

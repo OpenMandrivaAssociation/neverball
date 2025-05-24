@@ -16,8 +16,8 @@ BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(vorbisfile)
-BuildRequires:	pkgconfig(gcc)
-BuildRequires:	pkgconfig(gcc-c++)
+BuildRequires:	gcc
+BuildRequires:	gcc-c++
 
 %description
 Tilt the floor to roll the ball through the obstacle course before time

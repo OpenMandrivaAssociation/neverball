@@ -48,7 +48,7 @@ or greater) is required.
 
 %build
 export CC=gcc
-expor CXX=g++
+export CXX=g++
 %make \
 	CFLAGS="%{optflags}" \
 	CXXFLAGS="%{optflags}" \

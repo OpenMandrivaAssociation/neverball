@@ -9,6 +9,7 @@ License:	GPLv2+
 Group:		Games/Arcade
 Url:		https://icculus.org/neverball/
 Source0:	http://icculus.org/neverball/%{name}-%{version}.tar.gz
+BuildRequires:	gettext
 BuildRequires:	jpeg-devel
 BuildRequires:	physfs-devel
 BuildRequires:	pkgconfig(gl)

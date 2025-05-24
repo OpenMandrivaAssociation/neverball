@@ -49,7 +49,7 @@ or greater) is required.
 %build
 export CC=gcc
 export CXX=g++
-%make \
+%make_build \
 	CFLAGS="%{optflags}" \
 	CXXFLAGS="%{optflags}" \
 	ENABLE_NLS=1 \
